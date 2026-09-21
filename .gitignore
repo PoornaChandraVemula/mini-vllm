@@ -1,0 +1,17 @@
+.venv/
+.cache/
+checkpoints/
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.*
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+results/
+# Personal study material stays on this computer.
+/docs/
+/local-docs/
+*interview-guide*

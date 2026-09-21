@@ -1,0 +1,2 @@
+# Portable dependencies and editable package; see README for the CUDA kernel install.
+-e .

@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mini-vllm"
+version = "0.1.0"
+description = "nano-vllm's compact inference engine adapted for Gemma 3 1B"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "torch==2.8.0",
+    "transformers==4.57.3",
+    "safetensors==0.6.2",
+    "huggingface-hub==0.36.0",
+    "xxhash==3.6.0",
+    "numpy>=1.26,<3",
+    "tqdm>=4.66,<5",
+]
+
+[project.optional-dependencies]
+cuda = ["triton==3.4.0; sys_platform == 'linux'"]
+
+[project.urls]
+Repository = "https://github.com/PoornaChandraVemula/mini-vllm"
+Upstream = "https://github.com/GeeeekExplorer/nano-vllm"
+
+[tool.setuptools.packages.find]
+include = ["minivllm*"]
