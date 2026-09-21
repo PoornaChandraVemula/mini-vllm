@@ -1,4 +1,4 @@
-"""Text-only Gemma 3 using nano-vllm's packed projections and paged attention.
+"""Text-only Gemma 3 with packed projections and paged attention.
 
 The default supported checkpoint is google/gemma-3-1b-pt (or its -it variant).
 The model computes the network itself; Transformers only provides configuration

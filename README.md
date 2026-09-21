@@ -1,10 +1,12 @@
 # mini-vllm
 
-A compact **Gemma 3 1B inference engine**, adapted from
-[nano-vllm](https://github.com/GeeeekExplorer/nano-vllm). It keeps nano-vllm's
-paged KV cache, prefix reuse, continuous batching, chunked prefill, FlashAttention,
-Triton cache writes, and CUDA graphs, and replaces its Qwen3 model with Gemma 3.
-See [UPSTREAM.md](UPSTREAM.md) for the exact upstream revision and attribution.
+An educational reimplementation of core vLLM-style inference techniques for
+**Gemma 3 1B**. The project explores paged KV caching, prefix reuse, continuous
+batching, chunked prefill, FlashAttention, Triton cache writes, and CUDA graphs
+in a compact Python engine.
+
+Built to make transformer inference internals easier to study, experiment with,
+and understand.
 
 This is an offline Python inference engine, not an HTTP serving platform.
 The custom model computes Gemma directly; Hugging Face supplies configuration,
@@ -15,7 +17,7 @@ tokenization, checkpoint files, and the independent test reference.
 - Text-only `google/gemma-3-1b-pt` (completion) and `google/gemma-3-1b-it` (chat).
 - Linux, Python 3.10–3.12, an NVIDIA Ampere/Ada/Hopper GPU, compatible CUDA toolkit/driver.
 - BF16 or FP16 weights; **one GPU / `tensor_parallel_size=1`**. Gemma 1B has only
-  one KV head, and this adaptation does not implement replicated KV heads for TP.
+  one KV head, and this implementation does not replicate KV heads for TP.
 - macOS and CPU can run the correctness tests. The inference engine requires CUDA.
 
 The default context limit is 4,096 tokens. Gemma 1B's architecture allows 32,768,
@@ -164,11 +166,16 @@ of 10,000/1,000,000, and five local layers followed by one global layer. A 512-t
 local window maps to FlashAttention's inclusive `(511, 0)` bounds.
 
 The cache retains full history for **all** layers, including local-attention layers.
-This preserves nano-vllm's page manager and correctness, but does not implement
-hybrid sliding-window storage reclamation. BF16 Gemma 1B KV costs 26 KiB/token,
+Local attention still enforces the correct window, but hybrid sliding-window
+storage reclamation is not implemented. BF16 Gemma 1B KV costs 26 KiB/token,
 or 6.5 MiB per 256-token block across 26 layers. Multimodal models, quantization,
 scaled RoPE variants, speculative decoding, production API serving, and multi-GPU
 Gemma inference are outside this project's scope.
+
+## Acknowledgments
+
+This educational project builds on [nano-vllm](https://github.com/GeeeekExplorer/nano-vllm).
+See [UPSTREAM.md](UPSTREAM.md) for source attribution and implementation origins.
 
 ## License
 

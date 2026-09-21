@@ -1,7 +1,8 @@
-# Provenance
+# Acknowledgments and source notes
 
-mini-vllm adapts [nano-vllm](https://github.com/GeeeekExplorer/nano-vllm)
-by Xingkai Yu, pinned at commit
+mini-vllm is an educational reimplementation of core vLLM-style inference
+techniques for Gemma 3 1B. Its engine includes code from
+[nano-vllm](https://github.com/GeeeekExplorer/nano-vllm) by Xingkai Yu, pinned at commit
 [`bb823b3e06983d71485a8e1f23715ebd87d98ef8`](https://github.com/GeeeekExplorer/nano-vllm/tree/bb823b3e06983d71485a8e1f23715ebd87d98ef8).
 The original MIT license and copyright notice are preserved in `LICENSE`.
 
@@ -16,7 +17,7 @@ windows, tied checkpoint weights, multiple stop tokens, and explicit TP=1 scope.
 Supporting fixes add strict loading, input/lifecycle checks, greedy sampling,
 context/cache bounds, safe CPU staging tensors, bounded decode token batches,
 and graph batch-size coverage. CPU reference and scheduler tests and optional
-CUDA integration tests accompany the adaptation.
+CUDA integration tests accompany the implementation.
 
 The implementation was checked against
 [Transformers 4.57.3's Gemma3 model](https://github.com/huggingface/transformers/blob/v4.57.3/src/transformers/models/gemma3/modeling_gemma3.py)
